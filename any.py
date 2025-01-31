@@ -1,5 +1,5 @@
-from app import app
-from models import db, Category, Artwork, User
+# from app import app
+# from models import db, Category, Artwork, User
 
 # users = [
 #     {"email": "anne@gmail.com", "name": "Anne Faith"},
