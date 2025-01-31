@@ -31,7 +31,7 @@ class Artwork(db.Model, SerializerMixin):
     title = db.Column(db.String(120), nullable=False)
     image = db.Column(db.String(120), nullable=False)
     price = db.Column(db.Float, nullable=False)
-    category = db.Column(db.Enum('painting','sculpture','photography'))
+    category = db.Column(db.Enum('painting','sculpture','photography', name='category_enum'))
 
     def to_dict(self):
         return {
