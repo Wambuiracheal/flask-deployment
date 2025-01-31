@@ -11,7 +11,7 @@ load_dotenv()
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv['DATABASE_URL']
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Fixed typo
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  
 CORS(app)
 
 db.init_app(app)
