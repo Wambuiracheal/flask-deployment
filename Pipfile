@@ -13,6 +13,7 @@ psycopg2-binary = "*"
 python-dotenv = "*"
 gunicorn = "*"
 sqlalchemy-serializer = "*"
+flask-restful = "*"
 
 [dev-packages]
 
