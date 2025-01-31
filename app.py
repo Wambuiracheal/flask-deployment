@@ -1,13 +1,16 @@
+import os
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
 from models import db
 from flask_restful import Api
 from resources.art import ArtworkDisplayResource, ArtworkResource
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///art.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv['DATABASE_URL']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Fixed typo
 CORS(app)
 
