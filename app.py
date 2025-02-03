@@ -8,28 +8,29 @@ from resources.art import ArtworkDisplayResource, ArtworkResource
 from dotenv import load_dotenv
 load_dotenv()
 
-app = Flask(__name__)
+def create_app():
+    app = Flask(__name__)
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv['DATABASE_URL']
-app.config['SQLALCHEMY_DATABASE_URI'] =  'postgresql://art_db_7n3p_user:MnVDmP2NQ7w9z1kELUEFhsjhZGOPANP6@dpg-cue4qjt2ng1s7382dp90-a.oregon-postgres.render.com/art_db_7n3p'
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  
+    CORS(app)
 
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  
-CORS(app)
+    db.init_app(app)
+    migrate = Migrate(app, db)
+    api = Api(app)
 
-db.init_app(app)
-migrate = Migrate(app, db)
-api = Api(app)
+    with app.app_context():
+        db.create_all()
 
-with app.app_context():
-    db.create_all()
-
-api.add_resource(ArtworkDisplayResource, '/artworks')
-api.add_resource(ArtworkResource, '/artworks/<int:id>')
+    api.add_resource(ArtworkDisplayResource, '/artworks')
+    api.add_resource(ArtworkResource, '/artworks/<int:id>')
 
 
-@app.route('/')
-def home():
-    return '<h1>Welcome to the Artwork Page</h1>'
+    @app.route('/')
+    def home():
+        return '<h1>Welcome to the Artwork Page</h1>'
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    # if __name__ == '__main__':
+    #     app.run(debug=True)
+
+    return app
